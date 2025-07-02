@@ -1,0 +1,5 @@
+"ONTOLOGY","ID","Description","GeneRatio","BgRatio","pvalue","p.adjust","qvalue","geneID","Count"
+"BP","GO:0044380","protein localization to cytoskeleton","1/6","59/18870",0.0186163539035676,0.0497215631892574,0.0209353950270558,"286077",1
+"BP","GO:0045104","intermediate filament cytoskeleton organization","1/6","94/18870",0.0295228152511935,0.0497215631892574,0.0209353950270558,"286077",1
+"BP","GO:0045103","intermediate filament-based process","1/6","95/18870",0.0298329379135545,0.0497215631892574,0.0209353950270558,"286077",1
+"MF","GO:0019215","intermediate filament binding","1/5","11/18496",0.00297040189247633,0.0356448227097159,0.0218871718392992,"286077",1

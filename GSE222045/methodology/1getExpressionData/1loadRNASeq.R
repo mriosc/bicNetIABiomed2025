@@ -1,0 +1,154 @@
+# Cargamos librerias 
+if (!require("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
+
+BiocManager::install("DESeq2")
+
+library(readr)
+library(dplyr)
+library(DESeq2)
+library(RColorBrewer)
+library(pheatmap)
+library(ggplot2)
+library(ggrepel)
+
+# Cambiar ruta directorio de trabajo
+setwd("C:/Users/aurel/git-repositories/mlGCN/rGSE222045/methodology/1getExpressionData") # Aurelio Windows 
+
+# Cargamos los datos
+count_data <- read.csv("../../dataset/GSE222045.tsv", sep = "\t")
+colnames(count_data)
+head(count_data)
+#count_data <- count_data[ , -ncol(count_data)] # Eliminar la última columna (columna sin info)
+rownames(count_data) <- count_data$GeneID # Asignar la columna 'symbol' como nombres de las filas
+count_data <- count_data[, -which(names(count_data) == "GeneID")] # Eliminar la columna 'symbol' del data frame
+head(count_data)
+
+
+# Cargamos la información de las muestras 
+sample_info <- read.csv("../../dataset/data_info.csv")
+colnames(sample_info)
+head(sample_info)
+sample_info$type <- factor(sample_info$type) # Se establece la columna type como factor
+
+dim(count_data)
+dim(sample_info)
+colnames(count_data)
+rownames(sample_info)
+
+# Se crea un objeto DESeqDataSet utilizando la matriz de conteo y la información de las muestras
+# Se establece el diseño experimental como "~type"
+col_data <- data.frame(
+  condition = factor(c("Control", "Control", "Control", 
+                       "Control", "Tumor", "Tumor",
+                       "Tumor", "Control", "Control", 
+                       "Tumor", "Tumor", "Control",
+                       "Tumor","Control","Control",
+                       "Tumor","Tumor","Tumor",
+                       "Control","Control","Control",
+                       "Control","Control","Control",
+                       "Tumor", "Control","Tumor","Tumor",
+                       "Tumor","Tumor","Tumor",
+                       "Tumor","Tumor"))
+)
+
+dds <- DESeqDataSetFromMatrix(countData = count_data, colData = col_data, design = ~ condition)
+dds <- DESeq(dds)
+keep <- rowSums(counts(dds)) >= 5
+dds <- dds[keep,]
+normalized_counts <- counts(dds, normalized = TRUE)
+
+# PCA Justificacion de elegir FC a 1.
+vsd <- vst(dds, blind=FALSE)
+pca_data <- plotPCA(vsd, intgroup = "condition", returnData = TRUE)
+percentVar <- round(100 * attr(pca_data, "percentVar"))
+pca_plot <- ggplot(pca_data, aes(PC1, PC2, color = condition, label = name)) +
+  geom_point(size = 3) +
+  geom_text_repel(aes(label = name)) +
+  xlab(paste0("PC1: ", percentVar[1], "% variance")) +
+  ylab(paste0("PC2: ", percentVar[2], "% variance")) +
+  ggtitle("PCA: Control vs Tumor") +
+  theme_minimal() +
+  scale_color_brewer(palette = "Set1")
+pdf("PCA_Control_vs_Tumor.pdf", width = 8, height = 6)
+print(pca_plot)
+dev.off()
+
+# CALCULOS DE LOS GENES DIFERENCIALMENTE EXPRESADOS
+# Run DESeq
+res <- results(dds)
+summary(res)
+
+#DEG
+fold.change.Sarcoma <- res$log2FoldChange # para obtener FC: la magnitud del cambio en la expresion de dos condiciones (diferencia logaritmica)
+adj.Pval.Sarcoma <- res$padj # pvalor ajustado: mide la significancia estadistica del cambio en la expresion genica
+genes.ids.Sarcoma <- rownames(res)
+
+# metodo combinado para los genes activados y reprimidos
+activated.genes.sarcoma.1 <- genes.ids.Sarcoma[fold.change.Sarcoma > 3 & adj.Pval.Sarcoma < 0.01]
+activated.genes.sarcoma.1 <- activated.genes.sarcoma.1[!is.na(activated.genes.sarcoma.1)]
+repressed.genes.sarcoma.1 <- genes.ids.Sarcoma[fold.change.Sarcoma < -3 & adj.Pval.Sarcoma < 0.01]
+repressed.genes.sarcoma.1 <- repressed.genes.sarcoma.1[!is.na(repressed.genes.sarcoma.1)]
+length(activated.genes.sarcoma.1)
+length(repressed.genes.sarcoma.1)
+
+# visualizacion de los datos volcano plot
+names(fold.change.Sarcoma) <- genes.ids.Sarcoma
+log.padj.sarcoma <- -log10(adj.Pval.Sarcoma)
+names(log.padj.sarcoma) <- genes.ids.Sarcoma
+png("volcanoPlot.png", width = 600, height = 600)
+plot(fold.change.Sarcoma,log.padj.sarcoma, ylab="-log10(p value)", xlab= "log2 fold change", pch=19, cex=0.5,
+     col = "grey", xlim=c(-6,6))
+points(fold.change.Sarcoma[activated.genes.sarcoma.1],log.padj.sarcoma[activated.genes.sarcoma.1], 
+       pch = 19, cex = 0.5, col = "red")
+points(fold.change.Sarcoma[repressed.genes.sarcoma.1],log.padj.sarcoma[repressed.genes.sarcoma.1], 
+       pch = 19, cex = 0.5, col = "blue")
+dev.off()
+
+# OBTENER DOS DATASET NORMAL Y TUMOR CON GENES DIFERENCIALMENTE EXPRESADOS
+sarcoma.all.DEG <- genes.ids.Sarcoma[abs(fold.change.Sarcoma) > 3 & adj.Pval.Sarcoma < 0.01]
+length(sarcoma.all.DEG)
+
+# cambio nombres columnas
+sampleID <- c("Control1", "Control2", "Control3", 
+              "Control4", "Tumor1", "Tumor2",
+              "Tumor3", "Control5", "Control6", 
+              "Tumor4", "Tumor5", "Control7",
+              "Tumor6","Control8","Control9",
+              "Tumor7","Tumor8","Tumor9",
+              "Control10","Control11","Control12",
+              "Control13","Control15","Control16",
+              "Tumor10", "Control17","Tumor11","Tumor12",
+              "Tumor13","Tumor14","Tumor15",
+              "Tumor16","Tumor18")
+
+
+colnames(normalized_counts) <- sampleID
+head(normalized_counts)
+
+
+
+normal.sarcoma.DEG.table <- normalized_counts[, c("Control1", "Control2", "Control3", 
+                                                  "Control4", "Control5", "Control6", 
+                                                  "Control7", "Control8","Control9",
+                                                  "Control10","Control11","Control12",
+                                                  "Control13","Control15","Control16",
+                                                  "Control17")]
+
+normal.sarcoma.DEG.table <- normal.sarcoma.DEG.table[rownames(normal.sarcoma.DEG.table) %in% sarcoma.all.DEG,]
+normal.sarcoma.DEG.table <- cbind(attr_name = rownames(normal.sarcoma.DEG.table), normal.sarcoma.DEG.table)
+
+tumor.sarcoma.DEG.table <- normalized_counts[, c("Tumor1", "Tumor2",
+                                                 "Tumor3", "Tumor4", "Tumor5",
+                                                 "Tumor6", "Tumor7","Tumor8","Tumor9",
+                                                 "Tumor10", "Tumor11","Tumor12",
+                                                 "Tumor13","Tumor14","Tumor15",
+                                                 "Tumor16","Tumor18")]
+
+tumor.sarcoma.DEG.table <- tumor.sarcoma.DEG.table[rownames(tumor.sarcoma.DEG.table) %in% sarcoma.all.DEG,]
+tumor.sarcoma.DEG.table <- cbind(attr_name = rownames(tumor.sarcoma.DEG.table), tumor.sarcoma.DEG.table)
+
+write.table(normal.sarcoma.DEG.table, file="normal_DEGs.csv", sep = "\t", 
+            quote = FALSE, row.names = FALSE, col.names = TRUE)
+write.table(tumor.sarcoma.DEG.table, file="tumor_DEGs.csv", sep = "\t", 
+            quote = FALSE, row.names = FALSE, col.names = TRUE)

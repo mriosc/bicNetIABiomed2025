@@ -1,0 +1,7 @@
+"category","subcategory","ID","Description","GeneRatio","BgRatio","pvalue","p.adjust","qvalue","geneID","Count"
+"Environmental Information Processing","Signal transduction","hsa04310","Wnt signaling pathway","3/6","174/8865",0.000142327434952663,0.010959212491355,0.00764073598166926,"5881/8549/5582",3
+"Environmental Information Processing","Signal transduction","hsa04370","VEGF signaling pathway","2/6","60/8865",0.000664042615096044,0.0255656406811977,0.0178243017736306,"5881/5582",2
+"Organismal Systems","Sensory system","hsa04750","Inflammatory mediator regulation of TRP channels","2/6","99/8865",0.00179861699860773,0.0346233772231988,0.0241393334023669,"51393/5582",2
+"Human Diseases","Cancer: overview","hsa05231","Choline metabolism in cancer","2/6","99/8865",0.00179861699860773,0.0346233772231988,0.0241393334023669,"5881/5582",2
+"Environmental Information Processing","Signal transduction","hsa04071","Sphingolipid signaling pathway","2/6","122/8865",0.00271770034561186,0.0418525853224226,0.0291795195002536,"5881/5582",2
+"Organismal Systems","Immune system","hsa04650","Natural killer cell mediated cytotoxicity","2/6","134/8865",0.00326915357796333,0.0419541375838627,0.0292503214870403,"5881/5582",2

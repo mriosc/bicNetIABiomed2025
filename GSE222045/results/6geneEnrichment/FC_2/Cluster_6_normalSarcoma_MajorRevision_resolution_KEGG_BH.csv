@@ -1,0 +1,14 @@
+"category","subcategory","ID","Description","GeneRatio","BgRatio","pvalue","p.adjust","qvalue","geneID","Count"
+"Environmental Information Processing","Signaling molecules and interaction","hsa04060","Cytokine-cytokine receptor interaction","17/71","298/8865",1.13979672335866e-10,1.51592964206702e-08,1.33176248729275e-08,"3575/10673/10663/3627/3560/4283/6362/3604/6352/1236/3561/3606/3594/7850/970/2833/8744",17
+"Environmental Information Processing","Signaling molecules and interaction","hsa04061","Viral protein interaction with cytokine and cytokine receptor","9/71","100/8865",8.57978921091694e-08,5.70555982525977e-06,5.01240317058832e-06,"3627/3560/4283/6362/6352/1236/3561/3606/2833",9
+"Human Diseases","Immune disease","hsa05340","Primary immunodeficiency","6/71","38/8865",4.80156729681582e-07,2.12869483492168e-05,1.87008410507563e-05,"3575/29851/925/926/3561/915",6
+"Organismal Systems","Immune system","hsa04640","Hematopoietic cell lineage","8/71","100/8865",1.17069661081342e-06,3.89256623095464e-05,3.41966641579711e-05,"3575/925/926/7850/914/921/915/952",8
+"Organismal Systems","Immune system","hsa04062","Chemokine signaling pathway","8/71","193/8865",0.00014359909234406,0.00381973585635201,0.00335568405267173,"10663/3627/4283/6362/3702/6352/1236/2833",8
+"Environmental Information Processing","Signaling molecules and interaction","hsa04514","Cell adhesion molecules","7/71","158/8865",0.00025557845041982,0.00566532231763935,0.00497705403449124,"5133/941/29851/925/926/3383/914",7
+"Organismal Systems","Immune system","hsa04660","T cell receptor signaling pathway","6/71","122/8865",0.000414508199234479,0.0078756557854551,0.00691885866391386,"5133/29851/3702/925/926/915",6
+"Organismal Systems","Immune system","hsa04623","Cytosolic DNA-sensing pathway","5/71","83/8865",0.000511195905643452,0.00849863193132238,0.00746615072716094,"3627/6352/3606/81030/9447",5
+"Organismal Systems","Immune system","hsa04658","Th1 and Th2 cell differentiation","5/71","93/8865",0.000860212220959685,0.0125983375140444,0.0110677915635847,"3560/3561/3594/915/2625",5
+"Human Diseases","Immune disease","hsa05323","Rheumatoid arthritis","5/71","95/8865",0.000947243422108603,0.0125983375140444,0.0110677915635847,"10673/941/6352/3606/3383",5
+"Organismal Systems","Immune system","hsa04659","Th17 cell differentiation","5/71","109/8865",0.00175194433912834,0.0207587738445623,0.0182368333735371,"3560/3561/3594/915/2625",5
+"Human Diseases","Immune disease","hsa05321","Inflammatory bowel disease","4/71","66/8865",0.00187297207620111,0.0207587738445623,0.0182368333735371,"3561/3606/3594/2625",4
+"Human Diseases","Infectious disease: parasitic","hsa05143","African trypanosomiasis","3/71","37/8865",0.00314732593044385,0.0321995652883871,0.0282877067432605,"3606/3383/3620",3

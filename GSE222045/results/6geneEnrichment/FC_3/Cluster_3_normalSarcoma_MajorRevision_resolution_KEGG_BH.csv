@@ -1,0 +1,8 @@
+"category","subcategory","ID","Description","GeneRatio","BgRatio","pvalue","p.adjust","qvalue","geneID","Count"
+"Environmental Information Processing","Signaling molecules and interaction","hsa04061","Viral protein interaction with cytokine and cytokine receptor","3/14","100/8865",0.000463218871058415,0.0122253851424061,0.00941621448709071,"4283/3627/6362",3
+"Organismal Systems","Immune system","hsa04620","Toll-like receptor signaling pathway","3/14","109/8865",0.000596360250849078,0.0122253851424061,0.00941621448709071,"4283/941/3627",3
+"Environmental Information Processing","Signaling molecules and interaction","hsa04060","Cytokine-cytokine receptor interaction","4/14","298/8865",0.000959029080730939,0.0131067307699895,0.0100950429550625,"4283/3627/3604/6362",4
+"Environmental Information Processing","Signaling molecules and interaction","hsa04514","Cell adhesion molecules","3/14","158/8865",0.00175011898810806,0.0179387196281077,0.0138167288534847,"941/29851/5133",3
+"Organismal Systems","Immune system","hsa04672","Intestinal immune network for IgA production","2/14","50/8865",0.00271698385334698,0.0211685079577547,0.0163043706991692,"941/29851",2
+"Organismal Systems","Immune system","hsa04062","Chemokine signaling pathway","3/14","193/8865",0.00309783043284215,0.0211685079577547,0.0163043706991692,"4283/3627/6362",3
+"Organismal Systems","Immune system","hsa04623","Cytosolic DNA-sensing pathway","2/14","83/8865",0.00732648573407206,0.0429122735852792,0.0330518153416785,"3627/9447",2
