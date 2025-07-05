@@ -1,29 +1,50 @@
 import pandas as pd
+import os
 
-# === Parámetros ===
+# === Rutas ===
 ruta_expr = r"C:/Users/marcr/OneDrive/Escritorio/IABioMed/Biclusters UniBic/GSE64763/1_DEGs/FC_1/FC1_tumor_DEGs_symbols_deduplicated.csv"
 ruta_bicluster = r"C:/Users/marcr/OneDrive/Escritorio/IABioMed/Biclusters UniBic/GSE64763/5_degree/tumor/FC_1/mapping_bicluster_tumor.csv"
-output_dir = r"C:/Users/marcr/OneDrive/Escritorio/IABioMed/Biclusters UniBic/GSE64763/5_degree/tumor/FC_1/"
 
-# === 1. Cargar datos ===
-expr = pd.read_csv(ruta_expr)
-expr = expr.set_index(expr.columns[0])
+output_dir = r"C:/Users/marcr/OneDrive/Escritorio/IABioMed/Biclusters UniBic/GSE64763/5_degree/tumor/FC_1"
+
+# === Crear carpeta si no existe ===
+os.makedirs(output_dir, exist_ok=True)
+
+# === 1. Leer archivos ===
+expr = pd.read_csv(ruta_expr, sep="\t")
+expr.set_index("attr_name", inplace=True)
 
 bicluster = pd.read_csv(ruta_bicluster)
-genes = bicluster.loc[0, "Genes"].split(";")
-genes = [g.strip() for g in genes if g.strip() in expr.index]
+genes_bicluster = bicluster.loc[0, "Genes"].split(";")
+genes_bicluster = [g.strip() for g in genes_bicluster if g.strip() in expr.index]
 
-# === 2. Submatriz de expresión del bicluster ===
-expr_bicluster = expr.loc[genes]
+# === 2. Submatriz de expresión ===
+expr_bicluster = expr.loc[genes_bicluster]
 
-# === 3. Matriz de correlación de Pearson ===
+# === 3. Matriz de correlación Pearson ===
 corr_matrix = expr_bicluster.T.corr()
-corr_matrix.to_csv(output_dir + "matriz_correlacion_mapping_bicluster_tumor.csv")
 
 # === 4. Matriz binaria ===
 binary_matrix = ((corr_matrix > 0.5) | (corr_matrix < -0.5)).astype(int)
-binary_matrix.to_csv(output_dir + "matriz_binaria_mapping_bicluster_tumor.csv")
+
+# === 5. Guardar resultados ===
+corr_matrix.to_csv(os.path.join(output_dir, "matriz_correlacion_mapping_bicluster_tumor.csv"))
+binary_matrix.to_csv(os.path.join(output_dir, "matriz_binaria_mapping_bicluster_tumor.csv"))
+
+print("✅ Matrices generadas y guardadas correctamente en:")
+print(output_dir)
 
 
+# === 6. Calcular grados ===
+grados = binary_matrix.sum(axis=1)
+grados_df = pd.DataFrame({"Gene": grados.index, "Degree": grados.values})
 
-print("✅ Matrices guardadas: correlación y binaria.")
+# === 7. Guardar todo ===
+corr_matrix.to_csv(os.path.join(output_dir, "matriz_correlacion_mapping_bicluster_tumor.csv"))
+binary_matrix.to_csv(os.path.join(output_dir, "matriz_binaria_mapping_bicluster_tumor.csv"))
+grados_df.to_csv(os.path.join(output_dir, "grados_mapping_bicluster_tumor.csv"), index=False)
+
+print("✅ Todo generado correctamente:")
+print(f"- Matriz de correlación: {corr_matrix.shape}")
+print(f"- Matriz binaria: {binary_matrix.shape}")
+print(f"- Grados guardados: {grados_df.shape[0]} genes")
