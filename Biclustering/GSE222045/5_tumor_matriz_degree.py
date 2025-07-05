@@ -36,7 +36,7 @@ binary_matrix = ((corr_matrix > 0.5) | (corr_matrix < -0.5)).astype(int)
 corr_matrix.to_csv(os.path.join(output_dir, "matriz_correlacion_mapping_bicluster_tumor.csv"))
 binary_matrix.to_csv(os.path.join(output_dir, "matriz_binaria_mapping_bicluster_tumor.csv"))
 
-print("✅ Matrices generadas y guardadas correctamente en:")
+print("Matrices generadas y guardadas correctamente en:")
 print(output_dir)
 
 
@@ -49,7 +49,7 @@ corr_matrix.to_csv(os.path.join(output_dir, "matriz_correlacion_mapping_bicluste
 binary_matrix.to_csv(os.path.join(output_dir, "matriz_binaria_mapping_bicluster_tumor.csv"))
 grados_df.to_csv(os.path.join(output_dir, "grados_mapping_bicluster_tumor.csv"), index=False)
 
-print("✅ Todo generado correctamente:")
+print("Todo generado correctamente:")
 print(f"- Matriz de correlación: {corr_matrix.shape}")
 print(f"- Matriz binaria: {binary_matrix.shape}")
 print(f"- Grados guardados: {grados_df.shape[0]} genes")
