@@ -3,7 +3,8 @@ import pandas as pd
 import numpy as np
 
 # === 0. Establecer directorio de trabajo ===
-os.chdir(r"C:/Users/marcr/OneDrive/Escritorio/IABioMed/Biclusters UniBic/GSE222045")
+#os.chdir(r"C:/Users/marcr/OneDrive/Escritorio/IABioMed/Biclusters UniBic/GSE222045")
+os.chdir("/home/principalpc/git-repositories/bicNetIABiomed2025/Biclustering/GSE64763") # Ruta Aurelio
 
 
 # === 1. Cargar archivos ===
@@ -30,14 +31,18 @@ corr_matrix = expr_bicluster.T.corr()
 
 # === 5. Convertir a matriz binaria (1 si corr > 0.5 o < -0.5, 0 en otro caso) ===
 binary_matrix = ((corr_matrix < -0.5) | (corr_matrix > 0.5)).astype(int)
-
-binary_matrix.to_csv("matriz_binaria_bicluster.csv")
+binary_matrix.to_csv("5_degree/normal/FC_1/matriz_binaria_bicluster.csv")
 
 # === 6. Calcular grados de los genes ===
 degrees = binary_matrix.sum(axis=1)
 
-# === 7. Identificar genes élite y comparar grados con tolerancia ===
-tolerancia = 5
+# === 7. Guardar grados de todos los genes de los biclusters ===
+degrees_df = pd.DataFrame({"Gene": degrees.index, "Degree": degrees.values})
+degrees_df["Elite"] = degrees_df["Gene"].isin(elite_genes)
+degrees_df.to_csv("5_degree/normal/FC_1/grados_todos_genes_bicluster.csv", index=False)
+
+# === 8. Identificar genes élite y comparar grados con tolerancia ===
+tolerancia = 0
 elite_in_bicluster = set(genes).intersection(elite_genes)
 elite_degrees = degrees.loc[list(elite_in_bicluster)]
 
@@ -48,17 +53,8 @@ for elite_gene, elite_deg in elite_degrees.items():
         matched_genes_list.append({"Gene": gene, "Degree": deg, "Elite_Degree": elite_deg, "Elite_Gene": elite_gene})
 
 matched_genes_df = pd.DataFrame(matched_genes_list)
-matched_genes_df.to_csv("genes_mismo_grado_elite.csv", index=False)
-
-# === 8. Guardar resultados ===
-matched_genes_df.to_csv("genes_mismo_grado_elite.csv", index=False)
-
-
-degrees_df = pd.DataFrame({"Gene": degrees.index, "Degree": degrees.values})
-degrees_df["Elite"] = degrees_df["Gene"].isin(elite_genes)
-degrees_df.to_csv("grados_todos_genes_bicluster.csv", index=False)
+matched_genes_df.to_csv("5_degree/normal/FC_1/genes_mismo_grado_elite.csv", index=False)
 
 print("\n✅ Script completado.")
 print(f"Bicluster más significativo: {best_bicluster_id}")
 print(f"Genes con el mismo grado que genes élite: {matched_genes_df.shape[0]} → guardados en 'genes_mismo_grado_elite.csv'")
-
