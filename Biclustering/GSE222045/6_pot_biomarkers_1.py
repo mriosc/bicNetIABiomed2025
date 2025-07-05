@@ -1,9 +1,11 @@
 import pandas as pd
+import os
 
 # === Rutas de entrada ===
 ruta_grados_normal = r"C:/Users/marcr/OneDrive/Escritorio/IABioMed/Biclusters UniBic/GSE222045/5_degree/normal/FC_1/grados_todos_genes_bicluster.csv"
 ruta_grados_tumor = r"C:/Users/marcr/OneDrive/Escritorio/IABioMed/Biclusters UniBic/GSE222045/5_degree/tumor/FC_1/grados_mapping_bicluster_tumor.csv"
 ruta_elite = r"C:/Users/marcr/OneDrive/Escritorio/IABioMed/Biclusters UniBic/GSE222045/3_Filtrados_elite/genes_elite.txt"
+ruta_salida = r"C:/Users/marcr/OneDrive/Escritorio/IABioMed/Biclusters UniBic/GSE222045/6_final_biomarkers"
 
 # === Leer archivos ===
 grados_normal = pd.read_csv(ruta_grados_normal)
@@ -61,7 +63,10 @@ for gen_elite in genes_elite:
 # Guardar resultado
 if resultados:
     df_final = pd.concat(resultados, ignore_index=True)
-    df_final.to_csv("potenciales_biomarcadores_por_elite.csv", index=False)
+    os.makedirs(ruta_salida, exist_ok=True)
+    salida_csv = os.path.join(ruta_salida, "potenciales_biomarcadores_por_elite.csv")
+    df_final.to_csv(salida_csv, index=False)
     print("✅ CSV generado con biomarcadores potenciales:", df_final.shape[0])
+    print("📁 Guardado en:", salida_csv)
 else:
     print("⚠️ No se encontraron biomarcadores con cambio coherente.")
