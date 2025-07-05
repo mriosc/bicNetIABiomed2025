@@ -42,7 +42,7 @@ GENE2: 60 <-> GE1 - ASPM.
 ¿Por qué? Debido a la variabilidad de los valores de expresión, los genes que tienen el mismo grado que un gen de élite en una condición normal pueden comportarse de manera diferente en el estado de enfermedad.
 
 
-## PASO 12 (REPETIR POR CADA UNO DE LOS GENES ÉLITES)
+#### PASO 12 (REPETIR POR CADA UNO DE LOS GENES ÉLITES)
 
 GE1 - ASPM
 ################
