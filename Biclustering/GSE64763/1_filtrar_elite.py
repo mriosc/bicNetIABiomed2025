@@ -1,6 +1,11 @@
 import os
 import pandas as pd
 
+    """
+    Identifique aquellos biclusters que constan de genes de élite ESCC. Para nuestro experimento, los genes de élite son aquellos que ya han sido identificados 
+    por los científicos como un biomarcador potencial de ESCC y se han puesto a disposición del público en GeneCards (www.genecards.org). 
+    Nos referimos a aquellos biclusters que incluyen genes de élite como biclusters importantes.
+    """
 # Cambiar al directorio de trabajo
 os.chdir("C:/Users/marcr/OneDrive/Escritorio/IABioMed/Biclusters UniBic/GSE64763")
 #os.chdir("/home/principalpc/git-repositories/bicNetIABiomed2025/Biclustering/GSE64763") # Ruta Aurelio

@@ -2,6 +2,20 @@ import os
 import pandas as pd
 import numpy as np
 
+"""
+A partir del mejor bicluster normal segun su p-value:
+    
+1) Calcular el Pearson correlación (Baak et al., 2020) entre los genes presentes en el bicluster importante; es decir, 
+si el bicluster consta de 50 genes con 6 muestras entonces creará un 50 × 50 matriz de correlación dependiendo de los valores de expresión de 6 muestras.
+    
+2) Convertir el matriz de correlación en una matriz binaria considerando los valores entre −0,5 to 0,5 como 0 ′ s y los restos como 1 ′ s.
+    
+3) Calcule el grado de cada gen para identificar los genes sospechosos que tienen el mismo grado que los genes de élite y guárdelos para una mayor investigación 
+porque es probable que los genes con el mismo grado que los genes de élite se conviertan en un biomarcador potencial.
+    
+"""
+
+
 # === 0. Establecer directorio de trabajo ===
 #os.chdir(r"C:/Users/marcr/OneDrive/Escritorio/IABioMed/Biclusters UniBic/GSE222045")
 os.chdir("/home/principalpc/git-repositories/bicNetIABiomed2025/Biclustering/GSE64763") # Ruta Aurelio
