@@ -25,7 +25,7 @@ setwd("C:/Users/marcr/OneDrive/Escritorio/IABioMed/Biclusters UniBic/GSE64763")
 setwd("/home/principalpc/git-repositories/bicNetIABiomed2025/Biclustering/GSE64763") # Path Aurelio
 
 # Leer el CSV
-biclusters <- read.csv("3_Filtrados_elite/normal/FC_1/FC1_normal_DEGs_symbols_deduplicated_biclusters_elite.csv", stringsAsFactors = FALSE)
+biclusters <- read.csv("3_Filtrados_elite/normal/FC_1/FC1_normal_DEGs_symbols_biclusters_elite.csv", stringsAsFactors = FALSE)
 
 # Crear carpeta de resultados
 #dir.create("resultados_enrichment", showWarnings = FALSE)

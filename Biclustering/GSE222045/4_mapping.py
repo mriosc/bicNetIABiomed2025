@@ -1,14 +1,24 @@
 import pandas as pd
 import os
 
-# Ruta ABSOLUTA al archivo de genes élite del bicluster normal
-archivo_genes_elite = "C:/Users/marcr/OneDrive/Escritorio/IABioMed/Biclusters UniBic/GSE222045/5_degree/normal/FC_1/genes_mismo_grado_elite.csv"
+"""
+Extraer biclusters de mapeo del conjunto de bicluster tumorales que corresponde al más bajo p-valor bicluster obtenido del conjunto de bicluster
+normal. Los biclusters que tienen los mismos genes de élite, que están presentes tanto en condiciones normales como patológicas, se denominan bicluster de mapeo.
+"""
 
-# Ruta ABSOLUTA al archivo de biclusters tumorales
-archivo_biclusters_tumor = "C:/Users/marcr/OneDrive/Escritorio/IABioMed/Biclusters UniBic/GSE222045/2_biclusters/FC_1/tumor_DEGs_symbols_biclusters.csv"
+#ruta_entrada = "C:/Users/marcr/OneDrive/Escritorio/IABioMed/Biclusters UniBic/GSE222045/" # Ruta Marc
+#ruta_salida = "C:/Users/marcr/OneDrive/Escritorio/IABioMed/Biclusters UniBic/GSE222045/5_degree/tumor/FC_1" # Ruta Marc
+
+ruta_entrada = "/home/principalpc/git-repositories/bicNetIABiomed2025/Biclustering/GSE222045/" # Ruta Aurelio
+ruta_salida = "/home/principalpc/git-repositories/bicNetIABiomed2025/Biclustering/GSE222045/5_degree/tumor/FC_1" # Ruta Aurelio
+
+# Archivo de genes élite del bicluster normal
+archivo_genes_elite = ruta_entrada+"5_degree/normal/FC_1/genes_mismo_grado_elite.csv"
+
+# Archivo de biclusters tumorales
+archivo_biclusters_tumor = ruta_entrada+"2_biclusters/FC_1/tumor_DEGs_symbols_biclusters.csv"
 
 # Ruta de salida
-ruta_salida = "C:/Users/marcr/OneDrive/Escritorio/IABioMed/Biclusters UniBic/GSE222045/5_degree/tumor/FC_1"
 os.makedirs(ruta_salida, exist_ok=True)  # Crea los directorios si no existen
 
 # Leer lista de genes élite
@@ -34,12 +44,12 @@ for idx, row in df.iterrows():
 
 # Guardar el mapping bicluster
 if mejor_bicluster is not None:
-    print(f"✅ Mapping bicluster encontrado con {max_matches} genes élite en común.")
+    print(f"Mapping bicluster encontrado con {max_matches} genes élite en común.")
     print("Genes en común:", ", ".join(genes_encontrados))
 
     output = pd.DataFrame([mejor_bicluster])
     output_path = os.path.join(ruta_salida, "mapping_bicluster_tumor.csv")
     output.to_csv(output_path, index=False)
-    print(f"🔽 Guardado como: {output_path}")
+    print(f"Guardado como: {output_path}")
 else:
-    print("⚠️ No se encontró ningún bicluster con genes élite en común.")
+    print("No se encontró ningún bicluster con genes élite en común.")

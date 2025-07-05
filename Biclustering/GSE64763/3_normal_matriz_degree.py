@@ -23,13 +23,13 @@ os.chdir("/home/principalpc/git-repositories/bicNetIABiomed2025/Biclustering/GSE
 
 # === 1. Cargar archivos ===
 resumen = pd.read_csv("4_resultados_enrichment/normal/FC_1/resumen_pvalores_biclusters.csv")
-biclusters = pd.read_csv("3_Filtrados_elite/normal/FC_1/FC1_normal_DEGs_symbols_deduplicated_biclusters_elite.csv")
+biclusters = pd.read_csv("3_Filtrados_elite/normal/FC_1/FC1_normal_DEGs_symbols_biclusters_elite.csv")
 
 with open("3_Filtrados_elite/genes_elite.txt", "r") as f:
     elite_genes = [g.strip() for g in f.read().replace("\n", "").split(",")]
 
 # Leer la matriz de expresión separada por tabuladores
-expr = pd.read_csv("1_DEGs/FC_1/FC1_normal_DEGs_symbols_deduplicated.csv", sep="\t")
+expr = pd.read_csv("1_DEGs/FC_1/FC1_normal_DEGs_symbols.csv", sep="\t")
 expr = expr.set_index(expr.columns[0])
 
 # === 2. Seleccionar el bicluster con mejor p-valor ===

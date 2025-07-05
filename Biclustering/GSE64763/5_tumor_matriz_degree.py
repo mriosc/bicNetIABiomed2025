@@ -2,7 +2,7 @@ import pandas as pd
 import os
 
 # === Rutas ===
-ruta_expr = r"C:/Users/marcr/OneDrive/Escritorio/IABioMed/Biclusters UniBic/GSE64763/1_DEGs/FC_1/FC1_tumor_DEGs_symbols_deduplicated.csv"
+ruta_expr = r"C:/Users/marcr/OneDrive/Escritorio/IABioMed/Biclusters UniBic/GSE64763/1_DEGs/FC_1/FC1_tumor_DEGs_symbols.csv"
 ruta_bicluster = r"C:/Users/marcr/OneDrive/Escritorio/IABioMed/Biclusters UniBic/GSE64763/5_degree/tumor/FC_1/mapping_bicluster_tumor.csv"
 
 output_dir = r"C:/Users/marcr/OneDrive/Escritorio/IABioMed/Biclusters UniBic/GSE64763/5_degree/tumor/FC_1"

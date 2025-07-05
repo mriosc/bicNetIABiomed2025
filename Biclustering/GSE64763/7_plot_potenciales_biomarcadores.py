@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
 import os
 
 # Cargar datos
-ruta_normal = "/mnt/data/FC1_normal_DEGs_symbols_deduplicated.csv"
-ruta_tumor = "/mnt/data/FC1_tumor_DEGs_symbols_deduplicated.csv"
+ruta_normal = "/mnt/data/FC1_normal_DEGs_symbols.csv"
+ruta_tumor = "/mnt/data/FC1_tumor_DEGs_symbols.csv"
 ruta_biomarcadores = "/mnt/data/potenciales_biomarcadores_por_elite.csv"
 
 df_normal = pd.read_csv(ruta_normal, sep="\t", index_col=0)

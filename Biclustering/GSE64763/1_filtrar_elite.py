@@ -29,6 +29,6 @@ def conservar_biclusters_si_alguno_elite(input_path, elite_set, output_suffix="_
     return output_path
 
 # Aplicar esta versión modificada al archivo único disponible
-bicluster_file = "2_biclusters/FC_1/FC1_normal_DEGs_symbols_deduplicated_biclusters.csv"
+bicluster_file = "2_biclusters/FC_1/normal_DEGs_symbols_biclusters.csv"
 output_path = conservar_biclusters_si_alguno_elite(bicluster_file, elite_set)
 print("Archivo filtrado guardado en:", output_path)
