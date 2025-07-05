@@ -1,3 +1,9 @@
+"""
+Identifique aquellos biclusters que constan de genes de élite ESCC. Para nuestro experimento, los genes de élite son aquellos que ya han sido identificados 
+por los científicos como un biomarcador potencial de ESCC y se han puesto a disposición del público en GeneCards (www.genecards.org). 
+Nos referimos a aquellos biclusters que incluyen genes de élite como biclusters importantes.
+"""
+
 # Función modificada: conserva biclusters completos si al menos uno de sus genes está en la lista de élite
 def conservar_biclusters_si_alguno_elite(input_path, elite_set, output_suffix="_elite_any"):
     df = pd.read_csv(input_path)

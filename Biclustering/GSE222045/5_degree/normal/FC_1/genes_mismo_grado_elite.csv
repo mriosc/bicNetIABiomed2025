@@ -1,2 +1,2 @@
-Gene,Degree,MatchedEliteGenes,IsElite
-SHMT1,53,SHMT1,True
+Gene,Degree,Elite_Degree,Elite_Gene
+SHMT1,53,53,SHMT1
