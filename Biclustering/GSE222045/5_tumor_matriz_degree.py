@@ -8,9 +8,9 @@ import os
 #output_dir = r"C:/Users/marcr/OneDrive/Escritorio/IABioMed/Biclusters UniBic/GSE222045/5_degree/tumor/FC_1"
 
 # Aurelio
-ruta_expr = r"/home/principalpc/git-repositories/bicNetIABiomed2025/Biclustering/GSE222045/1_DEGs/FC_1/tumor_DEGs_symbols.csv"
-ruta_bicluster = r"/home/principalpc/git-repositories/bicNetIABiomed2025/Biclustering/GSE222045/5_degree/tumor/FC_1/mapping_bicluster_tumor.csv"
-output_dir = r"/home/principalpc/git-repositories/bicNetIABiomed2025/Biclustering/GSE222045/5_degree/tumor/FC_1"
+ruta_expr = r"/home/principalpc/git-repositories/bicNetIABiomed2025/Biclustering/GSE222045/1_DEGs/FC_3/tumor_DEGs_symbols.csv"
+ruta_bicluster = r"/home/principalpc/git-repositories/bicNetIABiomed2025/Biclustering/GSE222045/5_degree/tumor/FC_3/mapping_bicluster_tumor.csv"
+output_dir = r"/home/principalpc/git-repositories/bicNetIABiomed2025/Biclustering/GSE222045/5_degree/tumor/FC_3"
 
 # === Crear carpeta si no existe ===
 os.makedirs(output_dir, exist_ok=True)

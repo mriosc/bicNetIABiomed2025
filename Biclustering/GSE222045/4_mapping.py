@@ -10,13 +10,13 @@ normal. Los biclusters que tienen los mismos genes de élite, que están present
 #ruta_salida = "C:/Users/marcr/OneDrive/Escritorio/IABioMed/Biclusters UniBic/GSE222045/5_degree/tumor/FC_1" # Ruta Marc
 
 ruta_entrada = "/home/principalpc/git-repositories/bicNetIABiomed2025/Biclustering/GSE222045/" # Ruta Aurelio
-ruta_salida = "/home/principalpc/git-repositories/bicNetIABiomed2025/Biclustering/GSE222045/5_degree/tumor/FC_1" # Ruta Aurelio
+ruta_salida = "/home/principalpc/git-repositories/bicNetIABiomed2025/Biclustering/GSE222045/5_degree/tumor/FC_3" # Ruta Aurelio
 
 # Archivo de genes élite del bicluster normal
-archivo_genes_elite = ruta_entrada+"5_degree/normal/FC_1/genes_mismo_grado_elite.csv"
+archivo_genes_elite = ruta_entrada+"5_degree/normal/FC_3/genes_mismo_grado_elite.csv"
 
 # Archivo de biclusters tumorales
-archivo_biclusters_tumor = ruta_entrada+"2_biclusters/FC_1/tumor_DEGs_symbols_biclusters.csv"
+archivo_biclusters_tumor = ruta_entrada+"2_biclusters/FC_3/tumor_DEGs_symbols_biclusters.csv"
 
 # Ruta de salida
 os.makedirs(ruta_salida, exist_ok=True)  # Crea los directorios si no existen

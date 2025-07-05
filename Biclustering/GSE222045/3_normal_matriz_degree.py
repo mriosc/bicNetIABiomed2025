@@ -7,13 +7,13 @@ import numpy as np
 os.chdir("/home/principalpc/git-repositories/bicNetIABiomed2025/Biclustering/GSE222045") # Ruta Aurelio
 
 # === 1. Cargar archivos ===
-resumen = pd.read_csv("4_resultados_enrichment/normal/FC_1/resumen_pvalores_biclusters.csv")
-biclusters = pd.read_csv("3_Filtrados_elite/normal/FC_1/FC1_normal_DEGs_symbols_biclusters_elite.csv")
+resumen = pd.read_csv("4_resultados_enrichment/normal/FC_3/resumen_pvalores_biclusters.csv")
+biclusters = pd.read_csv("3_Filtrados_elite/normal/FC_3/FC3_normal_DEGs_symbols_biclusters_elite.csv")
 
 with open("3_Filtrados_elite/genes_elite.txt", "r") as f:
     elite_genes = [g.strip() for g in f.read().replace("\n", "").split(",")]
 
-expr = pd.read_csv("1_DEGs/FC_1/normal_DEGs_symbols.csv", sep="\t")
+expr = pd.read_csv("1_DEGs/FC_3/normal_DEGs_symbols.csv", sep="\t")
 expr = expr.set_index(expr.columns[0])
 
 # === 2. Seleccionar el bicluster con mejor p-valor ===
@@ -35,7 +35,7 @@ degrees = binary_matrix.sum(axis=1)
 # === 7. Guardar grados de todos los genes de los biclusters ===
 degrees_df = pd.DataFrame({"Gene": degrees.index, "Degree": degrees.values})
 degrees_df["Elite"] = degrees_df["Gene"].isin(elite_genes)
-degrees_df.to_csv("5_degree/normal/FC_1/grados_todos_genes_bicluster.csv", index=False)
+degrees_df.to_csv("5_degree/normal/FC_3/grados_todos_genes_bicluster.csv", index=False)
 
 # === 8. Identificar genes élite y comparar grados con tolerancia ===
 tolerancia = 0
@@ -49,7 +49,7 @@ for elite_gene, elite_deg in elite_degrees.items():
         matched_genes_list.append({"Gene": gene, "Degree": deg, "Elite_Degree": elite_deg, "Elite_Gene": elite_gene})
 
 matched_genes_df = pd.DataFrame(matched_genes_list)
-matched_genes_df.to_csv("5_degree/normal/FC_1/genes_mismo_grado_elite.csv", index=False)
+matched_genes_df.to_csv("5_degree/normal/FC_3/genes_mismo_grado_elite.csv", index=False)
 
 print("\n✅ Script completado.")
 print(f"Bicluster más significativo: {best_bicluster_id}")
