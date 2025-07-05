@@ -1,0 +1,3 @@
+"ONTOLOGY","ID","Description","GeneRatio","BgRatio","RichFactor","FoldEnrichment","zScore","pvalue","p.adjust","qvalue","geneID","Count"
+"CC","GO:0005786","signal recognition particle, endoplasmic reticulum targeting","2/35","16/19880",0.125,71,11.7633336539967,0.00035578596048128,0.0172556190833421,0.0136696711132281,"6029/378706",2
+"CC","GO:0048500","signal recognition particle","2/35","16/19880",0.125,71,11.7633336539967,0.00035578596048128,0.0172556190833421,0.0136696711132281,"6029/378706",2

@@ -1,6 +1,0 @@
-"Bicluster","Min_GO_qvalue","Top_GO_term","Min_KEGG_qvalue"
-4,3.80847242684919e-07,"mononuclear cell differentiation",1.04403646079397e-07
-5,1.43988817191061e-06,"DNA replication",0.000113749253628317
-7,1.64873508269993e-05,"DNA-templated DNA replication",0.00339469561862098
-3,2.28368231545772e-05,"chromosome segregation",0.00300995533689694
-2,0.00717089020938779,"mitotic cell cycle phase transition",0.000302915241633507
