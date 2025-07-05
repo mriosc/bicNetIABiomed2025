@@ -1,44 +1,50 @@
 import pandas as pd
+import os
 
-# === Parámetros ===
-tolerancia = 5  # Por ejemplo, +/-100 en grado
-ruta_grados = r"C:/Users/marcr/OneDrive/Escritorio/IABioMed/Biclusters UniBic/GSE222045/5_degree/normal/FC_1/grados_todos_genes_bicluster.csv"
-ruta_elite = r"C:/Users/marcr/OneDrive/Escritorio/IABioMed/Biclusters UniBic/GSE222045/3_Filtrados_elite/genes_elite.txt"
+# === Rutas ===
+ruta_expr = r"C:/Users/marcr/OneDrive/Escritorio/IABioMed/Biclusters UniBic/GSE222045/1_DEGs/FC_1/tumor_DEGs_symbols.csv"
+ruta_bicluster = r"C:/Users/marcr/OneDrive/Escritorio/IABioMed/Biclusters UniBic/GSE222045/5_degree/tumor/FC_1/mapping_bicluster_tumor.csv"
 
-# === Leer grados ya calculados ===
-grados_df = pd.read_csv(ruta_grados)
-grados_df.columns = grados_df.columns.str.strip()  # limpieza
+output_dir = r"C:/Users/marcr/OneDrive/Escritorio/IABioMed/Biclusters UniBic/GSE222045/5_degree/tumor/FC_1"
 
-# Leer lista de genes élite
-with open(ruta_elite, "r") as f:
-    elite_genes = [g.strip() for g in f.read().replace("\n", "").split(",")]
+# === Crear carpeta si no existe ===
+os.makedirs(output_dir, exist_ok=True)
 
-# Obtener grados de genes élite presentes
-elite_df = grados_df[grados_df["Gene"].isin(elite_genes)]
+# === 1. Leer archivos ===
+expr = pd.read_csv(ruta_expr, sep="\t")
+expr.set_index("attr_name", inplace=True)
 
-# Buscar genes con grado dentro de la tolerancia
-matched = []
+bicluster = pd.read_csv(ruta_bicluster)
+genes_bicluster = bicluster.loc[0, "Genes"].split(";")
+genes_bicluster = [g.strip() for g in genes_bicluster if g.strip() in expr.index]
 
-for _, elite_row in elite_df.iterrows():
-    elite_gene = elite_row["Gene"]
-    elite_degree = elite_row["Degree"]
-    lower = elite_degree - tolerancia
-    upper = elite_degree + tolerancia
+# === 2. Submatriz de expresión ===
+expr_bicluster = expr.loc[genes_bicluster]
 
-    genes_similares = grados_df[
-        (grados_df["Degree"] >= lower) &
-        (grados_df["Degree"] <= upper) &
-        (grados_df["Gene"] != elite_gene)
-    ].copy()
+# === 3. Matriz de correlación Pearson ===
+corr_matrix = expr_bicluster.T.corr()
 
-    genes_similares["EliteGeneReference"] = elite_gene
-    genes_similares["EliteDegree"] = elite_degree
-    matched.append(genes_similares)
+# === 4. Matriz binaria ===
+binary_matrix = ((corr_matrix > 0.5) | (corr_matrix < -0.5)).astype(int)
 
-# Guardar resultados
-if matched:
-    matched_df = pd.concat(matched, ignore_index=True)
-    matched_df.to_csv("genes_mismo_grado_elite_mapping_bicluster_tumor.csv", index=False)
-    print(f"\n✅ Script completado. Genes encontrados: {matched_df.shape[0]}")
-else:
-    print("\n⚠️ No se encontraron genes con grados coincidentes dentro de la tolerancia.")
+# === 5. Guardar resultados ===
+corr_matrix.to_csv(os.path.join(output_dir, "matriz_correlacion_mapping_bicluster_tumor.csv"))
+binary_matrix.to_csv(os.path.join(output_dir, "matriz_binaria_mapping_bicluster_tumor.csv"))
+
+print("✅ Matrices generadas y guardadas correctamente en:")
+print(output_dir)
+
+
+# === 6. Calcular grados ===
+grados = binary_matrix.sum(axis=1)
+grados_df = pd.DataFrame({"Gene": grados.index, "Degree": grados.values})
+
+# === 7. Guardar todo ===
+corr_matrix.to_csv(os.path.join(output_dir, "matriz_correlacion_mapping_bicluster_tumor.csv"))
+binary_matrix.to_csv(os.path.join(output_dir, "matriz_binaria_mapping_bicluster_tumor.csv"))
+grados_df.to_csv(os.path.join(output_dir, "grados_mapping_bicluster_tumor.csv"), index=False)
+
+print("✅ Todo generado correctamente:")
+print(f"- Matriz de correlación: {corr_matrix.shape}")
+print(f"- Matriz binaria: {binary_matrix.shape}")
+print(f"- Grados guardados: {grados_df.shape[0]} genes")
